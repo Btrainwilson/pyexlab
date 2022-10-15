@@ -24,17 +24,19 @@ class TestSubject():
         Saves information dictionary to save_folder\test_id
     load(load_folder)
         Loads the information dictionary from load_folder
+    id(idx)
+        Returns unique identifier for the test subject
     """
     __name__ = "TestSubject"
 
     def __init__(self, name = None):
 
         self.test_dict = {}
-        self.test_dict['Measurements'] = {}
+        self.test_dict['Data'] = {}
         self.test_dict['Info'] = {}
         
         #Record starttime of test
-        self.test_dict['Info']['Absolute Datetime Start'] = fio.datetime_now_str()
+        self.test_dict['Info']['Datetime Start'] = fio.datetime_now_str()
 
         if name is None or type(name) != str:
             self.test_dict['Info']['Name'] = self.__name__
@@ -44,12 +46,12 @@ class TestSubject():
         pass
 
     def measure(self, **kwargs):
-        #Measure state at current epoch
+        #Measure state at current epoch, i.e, update self.test_dict['Data']
         pass
 
     def final_measure(self, **kwargs):
         #Final measurement
-        self.test_dict['Info']['Absolute Datetime Finish'] = fio.datetime_now_str()
+        self.test_dict['Info']['Datetime Finish'] = fio.datetime_now_str()
 
     def record(self, save_folder, test_id):
 
@@ -58,11 +60,16 @@ class TestSubject():
         self.test_dict['Info']['Test ID'] = test_name
 
         test_folder = fio.makeDirectory(save_folder, test_name)
-
         fio.save_dict_expansion(test_folder, self.test_dict)
+
+        return self.test_dict
 
     def load(self, load_folder):
         self.test_dict = fio.load_dict_folder(load_folder)
+        return self.test_dict
+
+    def id(self, idx):
+        return self.__name__ + str(idx)
 
         
         

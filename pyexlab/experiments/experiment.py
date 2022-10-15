@@ -32,10 +32,14 @@ class Experiment():
         self.test_subjects = test_subjects
         self.print_report = print_report
 
+        self.experiment_info = {}
+
     def record(self):
 
-        for test_id, test_subject in enumerate(self.test_subjects):
-            test_subject.record(self.save_folder, test_id)
+        for test_idx, test_subject in enumerate(self.test_subjects):
+
+            #Pass up any information that needs to be recorded.
+            self.experiment_info[test_subject.id(test_idx)] = test_subject.record(self.save_folder, test_idx)
             
 
     def run(self, epochs=100):
