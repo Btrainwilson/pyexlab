@@ -26,10 +26,16 @@ class Experiment():
         Runs 100 epochs for each test subject and records the output to the save_folder
     """
 
-    def __init__(self, save_folder, test_subjects, id="Experiment", print_report = True, pkl_copy = True):
+    def __init__(self, test_subjects, save_folder=".", id="Experiment", print_report = True, pkl_copy = True):
 
-        folder_name = id + datetime_now_str()
-        self.save_folder = makeDirectory(save_folder, folder_name)
+        if not save_folder is None:
+            folder_name = id + datetime_now_str()
+            self.save_folder = makeDirectory(save_folder, folder_name)
+        else:
+            self.save_folder = None
+
+        if type(test_subjects) != list:
+            test_subjects = [test_subjects]
 
         self.test_subjects = test_subjects
         self.print_report = print_report
@@ -39,6 +45,9 @@ class Experiment():
         self.analysis_info = {}
 
     def record(self):
+
+        if self.save_folder is None:
+            return
 
         for test_idx, test_subject in enumerate(self.test_subjects):
 
@@ -77,7 +86,7 @@ class Experiment():
         #One last record
         self.record()
         
-        if self.pkl_copy:
+        if self.pkl_copy and not self.save_folder is None:
             save_pickle(self.save_folder, "exp", self)
 
     def analysis(self):

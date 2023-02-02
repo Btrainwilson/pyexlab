@@ -1,5 +1,6 @@
 from datetime import datetime
 from .. import fileio as fio
+from ..experiments import Experiment
 
 
 class TestSubject():
@@ -70,6 +71,10 @@ class TestSubject():
 
     def id(self, idx):
         return self.__name__ + str(idx)
+
+    def run(self, epochs, save_path=None):
+        exp = Experiment([self], save_path)
+        exp.run(epochs=epochs)
 
         
         
