@@ -1,6 +1,6 @@
 from datetime import datetime
 from .. import fileio as fio
-from ..experiments import Experiment
+from ..experiments.experiment import Experiment
 
 
 class TestSubject():
