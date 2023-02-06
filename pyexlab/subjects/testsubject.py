@@ -72,8 +72,8 @@ class TestSubject():
     def id(self, idx):
         return self.__name__ + str(idx)
 
-    def run(self, epochs, save_path=None):
-        exp = Experiment([self], save_path)
+    def run(self, epochs, save_path=None, id="Experiment"):
+        exp = Experiment([self], save_path, id=id)
         exp.run(epochs=epochs)
 
         

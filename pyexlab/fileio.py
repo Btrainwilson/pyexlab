@@ -2,20 +2,19 @@ from datetime import datetime
 import pickle
 import numpy as np
 import os
+from pathlib import Path
 
 def datetime_now_str():
 
     now = datetime.now()
     return now.strftime("%Y_%m_%d_%H_%M_%S")
     
-#Checks to see if a directory exists. If it doesn't it creates it. If it does exist, it does nothing.
+
 def makeDirectory(parent_dir, new_dir):
 
     save_path = os.path.join(parent_dir, new_dir)
-
-    if not os.path.exists(save_path):
-        os.mkdir(save_path)
-
+    os.makedirs(save_path, exist_ok=True)
+    
     return save_path
 
 #Save dictionary as folder structure
